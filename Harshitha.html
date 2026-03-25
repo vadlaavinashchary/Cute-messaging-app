@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cute Message Animation 💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  text-align: center;
+  background: linear-gradient(120deg, #ffd6e0, #d6f0ff);
+  overflow-x: hidden;
+  transition: background 1s;
+}
+
+button {
+  margin-top: 50px;
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  background: #ff80ab;
+  color: white;
+  cursor: pointer;
+}
+
+.chat {
+  margin-top: 30px;
+}
+
+.bubble {
+  background: #fff;
+  padding: 12px 18px;
+  margin: 10px auto;
+  border-radius: 20px;
+  width: fit-content;
+  max-width: 70%;
+  animation: slideIn 0.6s ease, fadeIn 0.6s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.heart {
+  position: fixed;
+  bottom: 0;
+  font-size: 20px;
+  animation: floatUp 3s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-500px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<button onclick="startChat()">Enter 💌</button>
+
+<div class="chat" id="chatBox"></div>
+
+<audio id="popSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+
+<script>
+const messages = [
+  "Hey 👋",
+  "I wanted to tell you something... 😊",
+  "You are really special 💖",
+  "Keep smiling always 😄✨",
+  "Have a beautiful day 🌸"
+];
+
+function startChat() {
+  let i = 0;
+  document.body.style.background = "linear-gradient(120deg, #d6ffd6, #fff0f5)";
+
+  const interval = setInterval(() => {
+    if (i >= messages.length) {
+      clearInterval(interval);
+      return;
+    }
+
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.innerText = messages[i];
+
+    document.getElementById("chatBox").appendChild(bubble);
+
+    document.getElementById("popSound").play();
+    createHeart();
+
+    i++;
+  }, 1500);
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
